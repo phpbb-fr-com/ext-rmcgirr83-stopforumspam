@@ -473,7 +473,7 @@ class main_listener implements EventSubscriberInterface
 	*/
 	public function message_admin_form_submit_before($event)
 	{
-		if ($this->config['allow_sfs'] == false)
+		if ($this->config['allow_sfs'] == false || !empty($this->user->data['is_registered']))
 		{
 			return false;
 		}
