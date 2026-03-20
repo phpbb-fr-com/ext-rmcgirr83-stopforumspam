@@ -233,7 +233,7 @@ class main_listener implements EventSubscriberInterface
 		trigger_error($message);
 	}
 
-		/*
+	/*
 	* poster_data_email			inject email address into posting if allowed for guests
 	*
 	* @param	$event			the event object
@@ -261,7 +261,7 @@ class main_listener implements EventSubscriberInterface
 	*/
 	public function poster_modify_message_text($event)
 	{
-		if ($event['mode'] == 'post' && $this->user->data['user_id'] == ANONYMOUS && $this->config['allow_sfs'])
+		if (in_array($event['mode'], ['post', 'quote', 'reply']) && $this->user->data['user_id'] == ANONYMOUS && $this->config['allow_sfs'])
 		{
 			$event['post_data'] = array_merge($event['post_data'], [
 				'email'	=> strtolower($this->request->variable('email', '')),
